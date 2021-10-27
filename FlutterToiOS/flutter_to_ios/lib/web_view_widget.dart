@@ -11,8 +11,25 @@ class WebViewWidget extends StatefulWidget {
 }
 
 class _WebViewWidgetState extends State<WebViewWidget> {
-  static const communicateChannel = MethodChannel('com.pages.flutter'); //交互的通道名称，flutter和native是通过这个标识符进行相互间的通信
-  String _nativeCallBackValue = '等待原生传值';
+  final MethodChannel _communicateChannel =
+      const MethodChannel('com.pages.flutter'); //交互的通道名称，flutter和native是通过这个标识符进行相互间的通信
+  String? _nativeCallBackValue = '等待原生传值';
+
+  @override
+  void initState() {
+    super.initState();
+
+    // //设置iOS端的消息监听
+    // _communicateChannel.setMethodCallHandler((call) {
+    //   switch (call.method) {
+    //     case 'callFlutterMethod':
+    //       print('receive native message ->method: ${call.method}, arguments: ${call.arguments}');
+    //       _nativeCallBackValue = call.arguments;
+    //       break;
+    //   }
+    //   return Future.delayed(const Duration(milliseconds: 1));
+    // });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +37,7 @@ class _WebViewWidgetState extends State<WebViewWidget> {
       appBar: AppBar(title: const Text('Flutter访问iOS')),
       body: Center(
         child: Column(mainAxisSize: MainAxisSize.max, mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text(_nativeCallBackValue ?? ''),
           ElevatedButton(
               onPressed: () {
                 _communicateFunction("Hi iOS, I'm flutter");
@@ -34,7 +52,7 @@ class _WebViewWidgetState extends State<WebViewWidget> {
   Future<void> _communicateFunction(flutterPara) async {
     try {
       //原生方法名为callNativeMethod,flutterPara为flutter调用原生方法传入的参数，await等待方法执行
-      final result = await communicateChannel.invokeMethod('callNativeMethod', flutterPara);
+      final result = await _communicateChannel.invokeMethod('callNativeMethod', flutterPara);
       //如果原生方法执行回调传值给flutter，那下面的代码才会被执行
       _nativeCallBackValue = result;
       setState(() {});
