@@ -17,6 +17,7 @@ import Flutter
               
               Unity.shared.setHostMainWindow(self.window!)
               Unity.shared.show()
+              Unity.shared.sendMessage("Canvas", methodName: "SetBallColor", message: "green")
               
               result(String(format: "%@->Hi flutter, I'm iOS", arguments: [self.getCurrentTime()]))
           }

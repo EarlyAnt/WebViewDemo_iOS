@@ -10,8 +10,15 @@ import UnityFramework
 import UIKit
 
 class Unity: UIResponder, UIApplicationDelegate {
-    static let shared = Unity()
+    private struct UnityMessage {
+        let objectName: String?
+        let methodName: String?
+        let messageBody: String?
+    }
+    private var cachedMessages = [UnityMessage]()
     
+    static let shared = Unity()
+
     private let dataBundleId: String = "com.unity3d.framework"
     private let frameworkPath: String = "/Frameworks/UnityFramework.framework"
     
@@ -82,6 +89,44 @@ class Unity: UIResponder, UIApplicationDelegate {
         return ufw
     }
     
+    // Main method for sending a message to Unity
+    func sendMessage(
+        _ objectName: String,
+        methodName: String,
+        message: String
+    ) {
+        let msg: UnityMessage = UnityMessage(
+            objectName: objectName,
+            methodName: methodName,
+            messageBody: message
+        )
+
+        // Send the message right away if Unity is initialized, else cache it
+        if isInitialized {
+            ufw?.sendMessageToGO(
+                withName: msg.objectName,
+                functionName: msg.methodName,
+                message: msg.messageBody
+            )
+        } else {
+            cachedMessages.append(msg)
+        }
+    }
+
+    // Send all previously cached messages, if any
+    private func sendCachedMessages() {
+        if cachedMessages.count >= 0 && isInitialized {
+            for msg in cachedMessages {
+                ufw?.sendMessageToGO(
+                    withName: msg.objectName,
+                    functionName: msg.methodName,
+                    message: msg.messageBody
+                )
+            }
+
+            cachedMessages.removeAll()
+        }
+    }
 }
 
 extension Unity: UnityFrameworkListener {

@@ -12,7 +12,7 @@ class WebViewWidget extends StatefulWidget {
 
 class _WebViewWidgetState extends State<WebViewWidget> {
   static const communicateChannel = MethodChannel('com.pages.flutter'); //交互的通道名称，flutter和native是通过这个标识符进行相互间的通信
-  String _nativeCallBackValue = '等待原生传值';
+  String _nativeCallBackValue = '等待接收iOS端消息';
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _WebViewWidgetState extends State<WebViewWidget> {
               onPressed: () {
                 _communicateFunction("Hi iOS, I'm flutter");
               },
-              child: const Text('打开百度'))
+              child: const Text('启动游戏'))
         ]),
       ),
     );
