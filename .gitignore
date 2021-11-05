@@ -1,11 +1,14 @@
 FlutterToiOS/flutter_to_ios/ios/UnityExport
 FlutterToiOS/flutter_to_ios/ios/UnityExport/*.*
+FlutterToUnity/flutter_to_unity/ios/UnityExport
+FlutterToUnity/flutter_to_unity/ios/UnityExport/*.*
 UnityGame/Library
 UnityGame/Logs
 UnityGame/obj
 UnityGame/Temp
 UnityGame/*.csproj
 UnityGame/*.sln
+
 
 
 
