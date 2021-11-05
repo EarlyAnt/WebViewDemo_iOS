@@ -20,6 +20,8 @@ class _WebViewWidgetState extends State<WebViewWidget> {
       appBar: AppBar(title: const Text('Flutter访问iOS')),
       body: Center(
         child: Column(mainAxisSize: MainAxisSize.max, mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text(_nativeCallBackValue),
+          const SizedBox(height: 10),
           ElevatedButton(
               onPressed: () {
                 _communicateFunction("Hi iOS, I'm flutter");

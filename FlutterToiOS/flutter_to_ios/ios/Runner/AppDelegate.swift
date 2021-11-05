@@ -14,7 +14,7 @@ import Flutter
           if call.method == "callNativeMethod" {
               let para = call.arguments
               print(para!)
-              result("Hi flutter, I'm iOS")
+              result(String(format: "%@->Hi flutter, I'm iOS", arguments: [self.getCurrentTime()]))
           }
           else {
               result("flutter method not implemented")
@@ -24,4 +24,14 @@ import Flutter
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
+    
+    func getCurrentTime() -> String {
+        let dateFormatter = DateFormatter()
+        
+        //dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss";
+        dateFormatter.dateFormat = "HH:mm:ss";
+        
+        let time = dateFormatter.string(from: Date())
+        return time;
+    }
 }
