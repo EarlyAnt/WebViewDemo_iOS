@@ -15,6 +15,7 @@ import Flutter
               let para = call.arguments
               print(para!)
               
+              _ = ViewModel()
               Unity.shared.setHostMainWindow(self.window!)
               Unity.shared.show()
               Unity.shared.sendMessage("Canvas", methodName: "SetBallColor", message: "green")

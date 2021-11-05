@@ -65,7 +65,7 @@ class Unity: UIResponder, UIApplicationDelegate {
         }
     }
     
-    private func unloadWindow() {
+    func unloadWindow() {
         if isInitialized {
             ufw?.unloadApplication()
         }

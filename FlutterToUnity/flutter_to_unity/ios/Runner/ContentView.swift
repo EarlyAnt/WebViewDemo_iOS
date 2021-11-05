@@ -12,13 +12,12 @@ struct ContentView: View {
     //let viewModel = ViewModel()
     
     var body: some View {
-        
-        Button(action: {
-            //Todo: Add code for lauching unity here
-            
-            Unity.shared.show()
-        }) {
-            Text("Lauch Unity!")
+        VStack {
+            Button(action: {
+                Unity.shared.show()
+            }) {
+                Text("Launch Unity")
+            }
         }
     }
 }

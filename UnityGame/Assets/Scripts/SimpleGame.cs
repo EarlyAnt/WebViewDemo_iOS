@@ -20,7 +20,7 @@ public class SimpleGame : MonoBehaviour
     public void ExitGame()
     {
         //Application.Unload();
-        NativeAPI.CalliOSNativeMethod(InteractionMethod.GO_BACK);
+        NativeAPI.sendMessageToMobileApp("goback");
         Debug.Log("<><SimpleGame.ExitGame>unload scene");
     }
 
@@ -55,13 +55,5 @@ public class SimpleGame : MonoBehaviour
 public class NativeAPI
 {
     [DllImport("__Internal")]
-    public static extern void SendMessageToMobileApp(string message);
-
-    [DllImport("__Internal")]
-    public static extern void CalliOSNativeMethod(int parameter);
-}
-
-public static class InteractionMethod
-{
-    public const int GO_BACK = 0;
+    public static extern void sendMessageToMobileApp(string message);
 }
