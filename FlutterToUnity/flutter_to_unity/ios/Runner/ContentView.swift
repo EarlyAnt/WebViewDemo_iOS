@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    //let viewModel = ViewModel()
+    
     var body: some View {
-        //Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
         
         Button(action: {
             //Todo: Add code for lauching unity here

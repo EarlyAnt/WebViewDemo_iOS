@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Runtime.InteropServices;
 
 public class SimpleGame : MonoBehaviour
 {
@@ -18,7 +19,8 @@ public class SimpleGame : MonoBehaviour
 
     public void ExitGame()
     {
-        Application.Unload();
+        //Application.Unload();
+        NativeAPI.CalliOSNativeMethod(InteractionMethod.GO_BACK);
         Debug.Log("<><SimpleGame.ExitGame>unload scene");
     }
 
@@ -48,4 +50,18 @@ public class SimpleGame : MonoBehaviour
         }
         this.cubeObject.GetComponent<Renderer>().material.color = customColor;
     }
+}
+
+public class NativeAPI
+{
+    [DllImport("__Internal")]
+    public static extern void SendMessageToMobileApp(string message);
+
+    [DllImport("__Internal")]
+    public static extern void CalliOSNativeMethod(int parameter);
+}
+
+public static class InteractionMethod
+{
+    public const int GO_BACK = 0;
 }
