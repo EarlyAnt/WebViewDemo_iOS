@@ -20,8 +20,15 @@ public class SimpleGame : MonoBehaviour
     public void ExitGame()
     {
         //Application.Unload();
-        NativeAPI.sendMessageToMobileApp("goback");
+        NativeAPI.sendMessageToMobileApp("exit_game");
         Debug.Log("<><SimpleGame.ExitGame>unload scene");
+    }
+
+    public void OpenWebPage()
+    {
+        //Application.Unload();
+        NativeAPI.sendMessageToMobileApp("open_webpage");
+        Debug.Log("<><SimpleGame.OpenWebPage>open web page");
     }
 
     public void SetBallColor(string color)

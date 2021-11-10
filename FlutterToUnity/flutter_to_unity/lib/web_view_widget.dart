@@ -23,20 +23,26 @@ class _WebViewWidgetState extends State<WebViewWidget> {
           Text(_nativeCallBackValue),
           const SizedBox(height: 10),
           ElevatedButton(
+              child: const Text('启动游戏'),
               onPressed: () {
-                _communicateFunction("Hi iOS, I'm flutter");
-              },
-              child: const Text('启动游戏'))
+                _communicateFunction("run_unity", "run unity game");
+              }),
+          const SizedBox(height: 10),
+          ElevatedButton(
+              child: const Text('打开Native页面'),
+              onPressed: () {
+                _communicateFunction("run_webview", "open native page");
+              }),
         ]),
       ),
     );
   }
 
   //异步执行调用原生方法，保持页面不卡住，因为调用原生的方法可能没实现会抛出异常，所以trycatch包住
-  Future<void> _communicateFunction(flutterPara) async {
+  Future<void> _communicateFunction(String methodName, String flutterPara) async {
     try {
       //原生方法名为callNativeMethod,flutterPara为flutter调用原生方法传入的参数，await等待方法执行
-      final result = await communicateChannel.invokeMethod('callNativeMethod', flutterPara);
+      final result = await communicateChannel.invokeMethod(methodName, flutterPara);
       //如果原生方法执行回调传值给flutter，那下面的代码才会被执行
       _nativeCallBackValue = result;
       setState(() {});

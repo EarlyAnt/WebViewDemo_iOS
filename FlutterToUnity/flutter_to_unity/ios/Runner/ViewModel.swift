@@ -1,7 +1,8 @@
 import Foundation
 
 class ViewModel: NSObject, ObservableObject, NativeCallsProtocol {
-
+    static var unityDelegate: UnityDelegate?
+    
     override init() {
         super.init()
 
@@ -11,6 +12,19 @@ class ViewModel: NSObject, ObservableObject, NativeCallsProtocol {
     func sendMessage(toMobileApp message: String) {
         print(String(format: "ios received message from unity: %@", arguments:[message]))
         
-        Unity.shared.unloadWindow()
+        if message == "exit_game" {
+            Unity.shared.unloadWindow()
+        }
+        else if message == "open_webpage" {
+            ViewModel.unityDelegate?.openWebPage()
+        }
     }
+}
+
+protocol UnityDelegate {
+    func openWebPage()
+}
+
+protocol NativeDelegate {
+    func closeWebPage()
 }

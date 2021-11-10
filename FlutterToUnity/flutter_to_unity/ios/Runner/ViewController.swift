@@ -14,11 +14,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        
         let vc = UIHostingController(rootView: ContentView())
         addChild(vc)
         vc.view.frame = self.view.frame;
         view.addSubview(vc.view)
         vc.didMove(toParent: self)
+        
+        print("lucky")
     }
 
 }

@@ -8,15 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    static var nativeDelegate : NativeDelegate?
     
     //let viewModel = ViewModel()
     
     var body: some View {
         VStack {
             Button(action: {
+                
+                /*
+                _ = ViewModel()
                 Unity.shared.show()
+                Unity.shared.sendMessage("Canvas", methodName: "SetBallColor", message: "green")
+                */
+                
+                ContentView.nativeDelegate?.closeWebPage()
             }) {
-                Text("Launch Unity")
+                Text("Close View")
             }
         }
     }
