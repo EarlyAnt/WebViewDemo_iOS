@@ -9,14 +9,21 @@ import Flutter
         let navigationController = UINavigationController(rootViewController: flutterViewController!)
         self.window.rootViewController = navigationController
         self.window.makeKeyAndVisible()
-        //Unity.shared.show()
+        Unity.shared.show()
     }
     
     func openWebPage() {
+        Unity.shared.unloadWindow()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let webPage = storyboard.instantiateViewController(withIdentifier: "thirdVC") as! ViewController
+        flutterViewController?.present(webPage, animated: true, completion: nil)
+        
+        /*
         let viewController = ViewController()
         let navigationController = UINavigationController(rootViewController: viewController)
         self.window.rootViewController = navigationController
         self.window.makeKeyAndVisible()
+        */
     }
     
     
