@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Runtime.InteropServices;
 
 public class SimpleGame : MonoBehaviour
 {
     [SerializeField]
+    private Text timer;
+    [SerializeField]
     private Transform cubeObject;
     [SerializeField]
     private Vector3 angle;
+    [SerializeField]
+    private int startSeconds = 0;
 
     private void Start()
     {
+        this.InvokeRepeating("RefreshTimer", 0f, 1f);
     }
 
     private void Update()
@@ -56,6 +62,11 @@ public class SimpleGame : MonoBehaviour
                 break;
         }
         this.cubeObject.GetComponent<Renderer>().material.color = customColor;
+    }
+
+    private void RefreshTimer()
+    {
+        this.timer.text = string.Format("已运行{0}秒", this.startSeconds++);
     }
 }
 

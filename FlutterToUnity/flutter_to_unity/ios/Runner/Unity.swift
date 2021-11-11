@@ -65,6 +65,12 @@ class Unity: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func hideWindow() {
+        if hostMainWindow != nil {
+            hostMainWindow?.makeKeyAndVisible()
+        }
+    }
+    
     func unloadWindow() {
         if isInitialized {
             ufw?.unloadApplication()

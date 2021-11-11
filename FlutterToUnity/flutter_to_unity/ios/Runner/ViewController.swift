@@ -10,6 +10,7 @@ import WebKit
 import SwiftUI
 
 class ViewController: UIViewController {
+    static var nativeDelegate : NativeDelegate?
     var navigationBar:UINavigationBar!
     
     override func viewDidLoad() {
@@ -29,7 +30,8 @@ class ViewController: UIViewController {
         //创建WebView
         let webView = WKWebView(frame: view.bounds, configuration: webConfiguration)
         //创建网址
-        let url = URL(string: "http://www.baidu.com")
+        //let url = URL(string: "http://www.baidu.com")
+        let url = URL(string: "https://baike.baidu.com/item/%E5%A4%96%E6%BB%A9/40416")
         //创建请求
         let request = URLRequest(url: url!)
         //加载请求
@@ -57,25 +59,13 @@ class ViewController: UIViewController {
         return navigationitem
     }
     @objc func leftButtonClick(){
-        /*
-        count = count + 1
-        //更新内容
-        navigationBar.pushItem(onMakeNavitem(), animated: true)
-         */
         print("previous")
         
         self.dismiss(animated: true, completion: nil)
-        Unity.shared.show()
+        ViewController.nativeDelegate?.closeWebPage()
     }
     /*
     @objc func rightButtonClick(){
-        /*
-        if count > 1{
-            count -= 1
-            //返回上一层
-            navigationBar.popItem(animated: true)
-        }
-        */
         print("next")
     }
     */

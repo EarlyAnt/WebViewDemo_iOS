@@ -6,14 +6,18 @@ import Flutter
     var flutterViewController : FlutterViewController?
     
     func closeWebPage() {
+        /*
         let navigationController = UINavigationController(rootViewController: flutterViewController!)
         self.window.rootViewController = navigationController
         self.window.makeKeyAndVisible()
+        */
+        
         Unity.shared.show()
     }
     
     func openWebPage() {
-        Unity.shared.unloadWindow()
+        Unity.shared.hideWindow()
+        self.window.makeKeyAndVisible()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let webPage = storyboard.instantiateViewController(withIdentifier: "thirdVC") as! ViewController
         flutterViewController?.present(webPage, animated: true, completion: nil)
@@ -32,7 +36,7 @@ import Flutter
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
       ViewModel.unityDelegate = self
-      ContentView.nativeDelegate = self
+      ViewController.nativeDelegate = self
       
       let controller = self.window.rootViewController as! FlutterViewController
       flutterViewController = controller
@@ -47,7 +51,6 @@ import Flutter
               Unity.shared.setHostMainWindow(self.window!)
               Unity.shared.show()
               Unity.shared.sendMessage("Canvas", methodName: "SetBallColor", message: "green")
-              
               
               result(String(format: "%@->run unity success", arguments: [self.getCurrentTime()]))
           }
