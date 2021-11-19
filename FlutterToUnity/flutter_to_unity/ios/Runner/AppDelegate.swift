@@ -5,6 +5,11 @@ import Flutter
 @objc class AppDelegate: FlutterAppDelegate, UnityDelegate, NativeDelegate {
     var flutterViewController : FlutterViewController?
     
+    func initGame() {
+        Unity.shared.sendMessage("Canvas", methodName: "SetBallColor", message: "green")
+        Unity.shared.sendMessage("Canvas", methodName: "ReceiveMessage", message: "Lucky")
+    }
+    
     func closeWebPage() {
         /*
         let navigationController = UINavigationController(rootViewController: flutterViewController!)
@@ -13,14 +18,17 @@ import Flutter
         */
         
         Unity.shared.show()
+        flutterViewController?.dismiss(animated: true, completion: nil)
     }
     
     func openWebPage() {
-        Unity.shared.hideWindow()
-        self.window.makeKeyAndVisible()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let webPage = storyboard.instantiateViewController(withIdentifier: "thirdVC") as! ViewController
-        flutterViewController?.present(webPage, animated: true, completion: nil)
+        webPage.nativeDelegate = self
+        flutterViewController?.present(webPage, animated: true, completion: (() -> Void)? {
+            Unity.shared.hideWindow()
+            self.window.makeKeyAndVisible()
+        })
         
         /*
         let viewController = ViewController()
@@ -36,7 +44,6 @@ import Flutter
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
       ViewModel.unityDelegate = self
-      ViewController.nativeDelegate = self
       
       let controller = self.window.rootViewController as! FlutterViewController
       flutterViewController = controller
@@ -50,7 +57,8 @@ import Flutter
               _ = ViewModel()
               Unity.shared.setHostMainWindow(self.window!)
               Unity.shared.show()
-              Unity.shared.sendMessage("Canvas", methodName: "SetBallColor", message: "green")
+              //Unity.shared.sendMessage("Canvas", methodName: "SetBallColor", message: "green")
+              //Unity.shared.sendMessage("Canvas", methodName: "ReceiveMessage", message: "Lucky")
               
               result(String(format: "%@->run unity success", arguments: [self.getCurrentTime()]))
           }

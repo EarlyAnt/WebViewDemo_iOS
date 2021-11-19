@@ -12,7 +12,10 @@ class ViewModel: NSObject, ObservableObject, NativeCallsProtocol {
     func sendMessage(toMobileApp message: String) {
         print(String(format: "ios received message from unity: %@", arguments:[message]))
         
-        if message == "exit_game" {
+        if message == "game_loaded" {
+            ViewModel.unityDelegate?.initGame()
+        }
+        else if message == "exit_game" {
             Unity.shared.unloadWindow()
         }
         else if message == "open_webpage" {
@@ -22,6 +25,7 @@ class ViewModel: NSObject, ObservableObject, NativeCallsProtocol {
 }
 
 protocol UnityDelegate {
+    func initGame()
     func openWebPage()
 }
 

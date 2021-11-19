@@ -7,6 +7,8 @@ public class SimpleGame : MonoBehaviour
     [SerializeField]
     private Text timer;
     [SerializeField]
+    private Text nativeMessage;
+    [SerializeField]
     private Transform cubeObject;
     [SerializeField]
     private Vector3 angle;
@@ -16,6 +18,8 @@ public class SimpleGame : MonoBehaviour
     private void Start()
     {
         this.InvokeRepeating("RefreshTimer", 0f, 1f);
+        NativeAPI.sendMessageToMobileApp("game_loaded");
+        Debug.Log("<><SimpleGame.Start>game loaded");
     }
 
     private void Update()
@@ -62,6 +66,12 @@ public class SimpleGame : MonoBehaviour
                 break;
         }
         this.cubeObject.GetComponent<Renderer>().material.color = customColor;
+    }
+
+    public void ReceiveMessage(string message)
+    {
+        Debug.LogFormat("<><SimpleGame.ReceiveMessage>message: {0}", message);
+        this.nativeMessage.text = message;
     }
 
     private void RefreshTimer()

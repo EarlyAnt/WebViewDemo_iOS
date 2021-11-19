@@ -10,7 +10,7 @@ import WebKit
 import SwiftUI
 
 class ViewController: UIViewController {
-    static var nativeDelegate : NativeDelegate?
+    var nativeDelegate : NativeDelegate?
     var navigationBar:UINavigationBar!
     
     override func viewDidLoad() {
@@ -61,8 +61,7 @@ class ViewController: UIViewController {
     @objc func leftButtonClick(){
         print("previous")
         
-        self.dismiss(animated: true, completion: nil)
-        ViewController.nativeDelegate?.closeWebPage()
+        self.nativeDelegate?.closeWebPage()
     }
     /*
     @objc func rightButtonClick(){
